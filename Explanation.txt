@@ -1,0 +1,311 @@
+**index.html:**
+```html
+<!DOCTYPE html>
+<html lang="en">
+```
+- This declares the document type and the language of the HTML document.
+
+
+
+```html
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+- These lines set the character set and viewport settings for the document.
+
+
+
+```html
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+```
+- This line imports the Bootstrap CSS framework from a Content Delivery Network (CDN), providing styling for the page.
+
+
+
+```html
+<script src="app.js"></script>
+```
+- This imports the JavaScript file `app.js`, allowing functionality to be added to the HTML elements.
+
+
+
+```html
+<title>To Do List</title>
+```
+- Sets the title of the webpage.
+
+
+
+```html
+</head>
+<body>
+```
+- Marks the beginning of the HTML body section.
+
+```html
+<header class="bg-success text-white p-5">
+```
+- Defines a header element with Bootstrap classes for styling.
+
+
+
+```html
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+```
+- Starts a Bootstrap grid layout for structuring content.
+
+
+
+```html
+<font face="Comic sans MS" size="11" color="black">
+    <strong>ToDo List</strong>
+</font>
+```
+- Specifies the font face, size, and color for the header text.
+
+
+
+```html
+</div>
+</div>
+</div>
+</header>
+```
+- Closes the header section.
+
+
+
+```html
+<div class="container mt-3">
+```
+- Starts another container for the main content area with a top margin.
+
+
+
+```html
+<h2>Add Items</h2>
+```
+- Displays a heading for adding items.
+
+
+
+```html
+<label id="lblsuccess" class="text-success" style="display: none;"></label>
+```
+- Creates an empty label element for displaying success messages. Initially, it's hidden (`display: none;`).
+
+
+
+```html
+<form id="addForm">
+```
+- Opens a form element with the ID "addForm" for adding items.
+
+
+
+```html
+<div class="row">
+    <div class="col-lg-7 col-md-7 col-sm-7">
+```
+- Starts a row and a grid column for the input field.
+
+
+
+```html
+<input type="text" onkeyup="toggleButton(this, 'submit')" class="form-control" id="item">
+```
+- Defines an input field for entering new items. It calls the `toggleButton` function when a key is released.
+
+
+
+```html
+</div>
+<div class="col-lg-5 col-md-5 col-sm-5">
+```
+- Starts another grid column for the submit button.
+
+
+
+```html
+<input type="submit" class="btn btn-dark" id="submit" value="Submit" disabled>
+```
+- Defines a submit button with the ID "submit". Initially disabled until the input field has content.
+
+
+
+```html
+</div>
+</div>
+</form>
+```
+- Closes the form for adding items.
+
+
+
+```html
+<h3 class="mt-4">Tasks</h3>
+```
+- Displays a heading for the list of tasks.
+
+
+
+```html
+<form id="addForm">
+```
+- Opens another form element with the same ID. This might be a mistake as IDs should be unique.
+
+
+
+```html
+<ul class="list-group" id="items"></ul>
+```
+- Defines an unordered list with the ID "items" for displaying the tasks.
+
+
+
+```html
+</form>
+```
+- Closes the form for the list of tasks.
+
+
+
+```html
+</div>
+```
+- Closes the main content container.
+
+
+
+```html
+</body>
+</html>
+```
+- Closes the HTML body and document.
+
+
+
+**app.js**
+```javascript
+window.onload = () => {
+    const form1 = document.querySelector("#addForm");
+
+    let items = document.getElementById("items");
+    let submit = document.getElementById("submit");
+
+    let editItem = null;
+
+    form1.addEventListener("submit", addItem);
+    items.addEventListener("click", removeItem);
+};
+```
+- This code runs when the window loads. It selects the form with the ID "addForm" and stores it in the variable `form1`. It also selects the list of items with the ID "items" and the submit button with the ID "submit". It initializes a variable `editItem` to `null`. Then, it adds event listeners: one for the form submission (`addItem` function) and another for clicks on the items list (`removeItem` function).
+
+
+
+```javascript
+function addItem(e) {
+    e.preventDefault();
+
+    if (submit.value != "Submit") {
+        console.log("Hello");
+
+        editItem.target.parentNode.childNodes[0].data
+            = document.getElementById("item").value;
+
+        submit.value = "Submit";
+        document.getElementById("item").value = "";
+
+        document.getElementById("lblsuccess").innerHTML
+            = "Text edited successfully";
+
+        document.getElementById("lblsuccess")
+                        .style.display = "block";
+
+        setTimeout(function() {
+            document.getElementById("lblsuccess")
+                            .style.display = "none";
+        }, 3000);
+
+        return false;
+    }
+```
+- The `addItem` function is triggered when the form is submitted. It prevents the default form submission behavior. If the value of the submit button is not "Submit", it indicates that an item is being edited rather than added. In this case, it updates the text of the item being edited, changes the submit button text back to "Submit", clears the input field, displays a success message, and hides it after 3 seconds.
+
+
+
+```javascript
+    let newItem = document.getElementById("item").value;
+    if (newItem.trim() == "" || newItem.trim() == null)
+        return false;
+    else
+        document.getElementById("item").value = "";
+
+    let li = document.createElement("li");
+    li.className = "list-group-item";
+
+    let deleteButton = document.createElement("button");
+
+    deleteButton.className =
+        "btn-danger btn btn-sm float-right delete";
+
+    deleteButton.appendChild(document.createTextNode("Delete"));
+
+    let editButton = document.createElement("button");
+
+    editButton.className =
+            "btn-success btn btn-sm float-right edit";
+
+    editButton.appendChild(document.createTextNode("Edit"));
+
+    li.appendChild(document.createTextNode(newItem));
+    li.appendChild(deleteButton);
+    li.appendChild(editButton);
+
+    items.appendChild(li);
+}
+```
+- If the item is not being edited, the function continues by getting the value of the input field. If the value is empty or null after trimming, it returns `false`. Otherwise, it creates a new list item (`li`) element and appends two buttons for deletion and editing. Then, it appends the new item to the list of items.
+
+
+
+```javascript
+function removeItem(e) {
+    e.preventDefault();
+    if (e.target.classList.contains("delete")) {
+        if (confirm("Are you Sure?")) {
+            let li = e.target.parentNode;
+            items.removeChild(li);
+            document.getElementById("lblsuccess").innerHTML
+                = "Text deleted successfully";
+
+            document.getElementById("lblsuccess")
+                        .style.display = "block";
+
+            setTimeout(function() {
+                document.getElementById("lblsuccess")
+                        .style.display = "none";
+            }, 3000);
+        }
+    }
+    if (e.target.classList.contains("edit")) {
+        document.getElementById("item").value =
+            e.target.parentNode.childNodes[0].data;
+        submit.value = "EDIT";
+        editItem = e;
+    }
+}
+```
+- The `removeItem` function is triggered when a click event occurs on the items list. It prevents the default behavior of the click event. If the clicked element has the class "delete", it prompts the user for confirmation and deletes the corresponding list item if confirmed. It also displays a success message for deletion. If the clicked element has the class "edit", it populates the input field with the text of the item to be edited and changes the submit button text to "EDIT". It also stores information about the item being edited.
+
+
+
+```javascript
+function toggleButton(ref, btnID) {
+    document.getElementById(btnID).disabled = false;
+}
+```
+- The `toggleButton` function is called when a key is released in the input field. It enables the submit button with the specified ID.
