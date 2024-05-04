@@ -1,20 +1,20 @@
-****JavaScript Project on Todo List****
+# JavaScript Project on Todo List #
 
 
 Todo Lists are the lists that we generally use to maintain our day-to-day tasks or list of everything that we have to do, with the most important tasks at the top of the list, and the least important tasks at the bottom. In this article, we are going to learn how to JavaScript Project on Todo List.
 
-Preview Image:
+## Preview Image ##
 
 ![image](https://github.com/harisowndharyav01/To-Do-List/assets/147607204/854661a3-9c2b-4d1d-94e2-24a085e854ff)
 
 
-**Prerequisites**
+## Prerequisites ##
 1. HTML
 2. CSS
 3. JavaScript
 
    
-**Approach**
+## Approach ##
 1. Use HTML to give structure to your project.
 2. Use CSS for Styling purposes
 3. JavaScript will be used to provide the required functionality
